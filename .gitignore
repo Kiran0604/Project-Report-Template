@@ -1,20 +1,22 @@
-# ignore all logs
+# Ignore standard LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.lof
 *.log
+*.lot
+*.out
+*.toc
+*.run.xml
+*.bcf
 *.bak
-Main.*
-!Main.pdf
-!Main.tex
-IDP_Report.*
-!IDP_Report.pdf
-!IDP_Report.tex
-InternshipReport.*
-!InternshipReport.pdf
-!InternshipReport.tex
-MajorProjectReport.*
-!MajorProjectReport.pdf
-!MajorProjectReport.tex
-MinorProjectReport.*
-!MinorProjectReport.pdf
-!MinorProjectReport.tex
-CODE_OF_CONDUCT.md
+*.glo
+*.ist
+*.listing
+*.sym2
+*.pdf-blx.bib
+*-blx.bib
 
+# OS files
+.DS_Store
+Thumbs.db
