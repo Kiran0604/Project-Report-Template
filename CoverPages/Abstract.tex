@@ -4,18 +4,12 @@
   \draw[line width = 4pt] ($(current page.north west) + (0.75in,-0.75in)$) rectangle ($(current page.south east) + (-0.75in,0.75in)$);
 \end{tikzpicture}
 
+Global trade flows are highly vulnerable to logistics friction at key maritime chokepoints like the Red Sea and the Strait of Hormuz. Geopolitical conflicts, security threats, and administrative bottlenecks introduce significant delays and cost penalties that cascade downstream to emerging markets. For Indian Small and Medium Enterprises (SMEs) that rely on predictable export-import cycles, these disruptions result in supply delays, increased container freight rates, and potential stockouts. There is an urgent need to build a reactive decision-support framework that can dynamically simulate supply chain shocks and optimize routing alternatives in real-time.
 
-Highlights of significant contributions: One page with 3 to 4 paragraphs\\
+This project presents an Agentic AI-driven Digital Twin framework designed to mitigate logistics friction and enhance Indian EXIM supply chain resilience. The framework is structured into five layers: Data Ingestion, Agentic Intelligence, Digital Twin, Execution Engine, and Presentation. At its core, the digital twin is represented by a 14-node, 19-edge multi-tier directed network graph in NetworkX, modeling paths from major Gulf suppliers, through intermediate maritime corridors and Indian entry ports (Mundra, Nhava Sheva, Cochin, Chennai), to regional distribution hubs and SME markets. A multi-agent orchestration system powered by CrewAI and Google Gemini (incorporating Friction Sentry, Logistics Optimizer, Cost \& Strategy Analyst, and SME Communicator agents) autonomously monitors environment signals and coordinates routing policies.
 
-Paragraph 1: Importance and relevance of Topic, reported issues and limitations of the topic in performance or computation etc, issues involved in those limitations, need for addressing those issues and a short note on how that is addressed in this report.
+To evaluate the framework's effectiveness, an Execution Engine was developed to simulate 50 diverse historical and hypothetical disruption scenarios (ranging from local port strikes to regional military conflicts) with varying severity levels. Using Dijkstra's pathfinding algorithm, the engine dynamically recalculates the optimal (least-time or least-cost) pathways upon shock injection. The system also tracks inventory levels (Days of Cover) at consumption nodes, dynamically triggering emergency restocking when stockouts are imminent. Integration testing of 39 tests validated that the routing engine successfully identifies alternative routes (such as the Cape of Good Hope bypass) and reduces local SME market stockout risk from severe disruptions.
 
-
-Paragraph 2: Objectives of this work, short note on algebraic methods used and formulations achieved, computational procedures developed. \gls{ic}.
-
-
-Paragraph 3: Description of simulation procedure including SW tools used and choice of test cases. Short note on results achieved and significant highlights of improvements if any in terms of percentage , for example the architecture presented in this report shows 22 \% improve in power consumption as compared to the previously reported articles.
-\gls{ic}
-
-Paragraph 4: The last para needed only if emulation (after simulation) or Hardware developed to validate simulation results in para 3. 
+An interactive React dashboard combined with a FastAPI backend provides a visual interface for operations managers. Real-time Leaflet maps display the topology, and color-coded status alerts show the propagation of shocks across nodes and edges, enabling human-in-the-loop validation of agent-driven rerouting decisions. The framework establishes a scalable, automated approach to supply chain risk management, demonstrating how agentic AI and graph theory can be unified to build resilient logistics networks.
 
 \pagebreak

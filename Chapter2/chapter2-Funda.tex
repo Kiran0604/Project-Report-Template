@@ -1,41 +1,77 @@
-\chapter{Theory and Fundamentals of Analog to Digital converter}
+\chapter{Theoretical Background and Prerequisite Learnings}
+This chapter discusses the theoretical foundations required for building the supply chain digital twin and agentic framework. It covers graph theory as applied to logistics, pathfinding optimization using Dijkstra's algorithm, the architecture of Large Language Model (LLM) agent systems, and inventory replenishment mathematics. Finally, it outlines the software tools used in this project.
 
-Every chapter should start with an introduction paragraph. This paragraph should brief about the flow of the chapter. This introduction can be limited within 4 to 5 sentences. The chapter heading should be appropriately modified (a sample heading is shown for this chapter). But don't start the introduction paragraph in the chapters 2 to end with "This chapter deals with....". Instead you should bring in the highlights of the chapter in the introduction paragraph.
+\section{Graph Theory in Supply Chain Networks}
+A supply chain can be naturally modeled as a directed graph $G = (V, E)$, where $V$ represents the set of nodes (locations) and $E$ represents the set of directed edges (lanes or shipping routes).
+Nodes are classified into tiers based on their role:
+\begin{equation}
+    V = V_{supplier} \cup V_{chokepoint} \cup V_{port} \cup V_{warehouse} \cup V_{market}
+\end{equation}
+Directed edges represent the flow of physical goods. Each edge $e = (u, v) \in E$ is associated with attributes that determine the logistics weight. In our digital twin, each edge contains:
+\begin{itemize}
+    \item \textbf{Baseline Transit Time ($T_{base}$):} The average transit days under normal conditions.
+    \item \textbf{Logistics Cost ($C_{base}$):} The freight cost in USD to move cargo across the edge.
+    \item \textbf{Friction Penalty ($FP$):} A multiplier representing inherent vulnerability to delays.
+\end{itemize}
 
-\section{Contents of this chapter}
+Under normal conditions, the baseline effective weight is calculated as:
+\begin{equation}
+    W_{effective} = W_{base} \times (1 + FP)
+\end{equation}
+By modeling the network as a graph, we can perform complex topological analyses, such as reachability, connectivity, and shortest path calculations, which represent cargo flows.
 
-This chapter should discuss about the prerequisite learnings before the execution of the project. Organise and elaborate the theory and necessary fundamentals required for the execution of the project. You can use \verb|\subsections| and \verb|subsubsections| in this chapter.
-\section{Contents of this chapter}
-If a specific programming language is required for the project, a section can be allotted in this chapter to discuss it. 
-\section{Contents of this chapter}
-Tools used could be another possible section to discuss about the software tools used in the work. 
-\section{Contents of this chapter}
-The details in this chapter can be added in consultation with the project guide. For an internship based projects, subsections can be modified accordingly. 
+\section{Pathfinding and Route Optimization}
+Route optimization is solved using pathfinding algorithms on the network graph. This project utilizes Dijkstra's algorithm, which finds the shortest path from a single source node to a target node on a weighted graph with non-negative edge weights.
 
-\section{Use of Acronyms and Glossaries}
-Acronyms are nothing but the short form of regular repeated word. Say for example, you have a repeat word "Integrated Circuits" and you want to use a short form for it as "IC". For which you have to first define the word and use it wherever you wanted to refer it.
+The algorithm maintains a set of visited nodes and a list of tentative distances from the source. At each step, it selects the unvisited node with the smallest tentative distance, updates the distances of its unvisited neighbors (relaxation), and marks it as visited.
+For an edge $e = (u, v)$ with weight $w(u, v)$, the relaxation step is defined as:
+\begin{equation}
+    \text{if } D(u) + w(u, v) < D(v) \text{ then } D(v) = D(u) + w(u, v)
+\end{equation}
+This project optimizes paths based on two separate objectives:
+\begin{enumerate}
+    \item \textbf{Transit Time Minimization:} The edge weight $w(u, v)$ is set to the effective transit time in days.
+    \item \textbf{Logistics Cost Minimization:} The edge weight $w(u, v)$ is set to the effective logistics cost in USD.
+\end{enumerate}
+When a shock is injected, edge weights increase, and Dijkstra's algorithm is run dynamically to find the new optimal path, simulating shipping lines rerouting around congested corridors.
 
-First, let's look at the definition, which has to be entered in \texttt{Glossaries.tex} under \texttt{CoverPages} directory.
-\begin{verbatim}
-%\newacronym{<Ref>}{<Short-Form>}{<Expanded word>}
-\newacronym{ic}{IC}{Integrated Circuits}
-\end{verbatim}
-In order to use the defined acronym, use the commands \verb|\gls{<Ref>}| as shown below
+\section{LLM-based Multi-Agent Orchestration}
+Large Language Models (LLMs) have evolved from text-prediction engines to decision-making agents. An agentic AI framework (such as CrewAI) structure LLMs by assigning roles, goals, and backstories, making them act as autonomous team members.
+The key components of an agentic system are:
+\begin{itemize}
+    \item \textbf{Agents:} Autonomous units initialized with specific LLM configurations, system prompts, and tool access.
+    \item \textbf{Tasks:} Concrete assignments given to agents, specifying descriptions, expectations, and output formats.
+    \item \textbf{Tools:} Executable functions (e.g., Python functions) that agents can call to interact with the external environment, such as querying databases or updating files.
+    \item \textbf{Process Workflow:} The execution policy (sequential, hierarchical, or consensual) that determines how tasks are handed over from one agent to another.
+\end{itemize}
+In this project, agents use sequential task execution to pass structured messages (JSON payloads) containing shock calculations, routing solutions, cost deltas, and dashboard triggers.
 
-As an example, call the definition with \verb|\gls{ic}| and the outcome of it is reflected as, \gls{ic}.
+\section{Inventory Replenishment and Stockout Mathematics}
+To evaluate the impact of logistics delays, the digital twin incorporates an inventory tracking layer at each consumption market node. The primary metric used is Days of Cover ($DoC$), which represents how long current inventory will last under constant demand:
+\begin{equation}
+    DoC = \frac{\text{Current Inventory (Metric Tons)}}{\text{Daily Demand Rate (Metric Tons/Day)}}
+\end{equation}
+When a transit delay ($\Delta_{days}$) occurs on the replenishment lane, the effective lead time increases. If the delay exceeds the days of cover, a stockout occurs:
+\begin{equation}
+    \text{if } \Delta_{days} > DoC \text{ then Stockout = True}
+\end{equation}
+To mitigate stockouts, the system triggers emergency restocking. The emergency cost ($C_{emergency}$) is calculated as a penalty proportional to the deficit:
+\begin{equation}
+    C_{emergency} = \text{Deficit Quantity (MT)} \times \text{Emergency Freight Rate (USD/MT)}
+\end{equation}
+Additionally, we monitor the Bullwhip Effect, which represents the amplification of demand variability as it moves upstream from markets to warehouses and ports.
 
-Note: For the First time, the expanded form appears along with the Short-form definition inside parenthesis. But when the \verb|\gls{}| is repeated, only Short-form appears inside the parenthesis.
+\section{Software Tools and Libraries}
+The framework is built using the following open-source software tools:
+\begin{itemize}
+    \item \textbf{Python 3.11:} The core programming language for the backend, optimization, and agent coordination.
+    \item \textbf{NetworkX:} A Python library for the creation, manipulation, and study of complex networks.
+    \item \textbf{CrewAI:} An orchestration framework for setting up and executing multi-agent workflows.
+    \item \textbf{Google Gemini Flash:} The underlying LLM providing linguistic and reasoning capabilities to the agents.
+    \item \textbf{FastAPI:} A modern, fast web framework for building RESTful APIs in Python.
+    \item \textbf{React \& Vite:} A frontend UI library and build tool for rendering the interactive analytics dashboard.
+    \item \textbf{Leaflet:} A JavaScript library for mobile-friendly interactive maps, used to visualize route paths.
+\end{itemize}
 
-Now, let's look at the definition of symbols. Follow the syntax to define the symbol first, inside \texttt{Glossaries.tex} under \texttt{CoverPages} directory.
-\begin{verbatim}
-%\newglossaryentry{<Ref>}{name=<Symbol>, description={<description about the symbol>}, type=<List type>}
-\newglossaryentry{rc}{name=$\tau$, description={Time constant}, type=symbolList}
-\end{verbatim}
-
-As an example, the rate of change is defined with \verb|\gls{rc}| and the outcome of it is reflected as, the rate of change is defined with \gls{rc}.
-
-\vspace{0.75cm}
-
- \textbf{The chapters should not end with figures, instead bring the paragraph explaining about the figure at the end followed by a summary paragraph.}
-
-After elaborating the various sections of the chapter (From Chapter 2 onwards), a summary paragraph should be written discussing the highlights of that particular chapter. This summary paragraph should not be numbered separately. This paragraph should connect the present chapter to the next chapter.
+\section{Summary}
+This chapter discussed the theoretical prerequisite concepts, including graph supply chains, Dijkstra's algorithm, agentic AI frameworks, and inventory mathematics. These concepts form the foundation of our 5-layer resilient architecture. The next chapter details the system design, graph schema, and multi-agent setup.

@@ -1,84 +1,71 @@
-\chapter{Introduction to Analog and Digital converters}
-Every chapter should start with an introduction paragraph. This paragraph should brief about the flow of the chapter. This introduction can be limited within 4 to 5 sentences. The chapter heading should be appropriately modified (a sample heading is shown for this chapter). But don't start the introduction paragraph in the chapters like "This chapter deals with....". Instead you should bring in the highlights of the chapter in the introduction paragraph.
+\chapter{Introduction}
+This chapter provides an introduction to the project work. It presents the context of global logistics chokepoint vulnerabilities and the impact of shipping friction on Indian trade. The chapter details the literature survey conducted in this domain, highlights the motivation and problem statement, and outlines the objectives of the work. Finally, it outlines the brief methodology, project constraints, and the organization of the report.
 
 \section[Introduction]{\textbf{Introduction}}
-The title of the project can be introduced in this section. This section should neatly elaborate the context of the project, the relevance of the area chosen and the title. You can bring a brief history and arrive at the title of the project. Use appropriate number of paragraphs within this section. 
+Global trade is heavily dependent on maritime transport, which accounts for over 80\% of international trade volume. This network of global commerce relies on critical shipping corridors and narrow passages known as maritime chokepoints, such as the Suez Canal, the Bab-el-Mandeb Strait (Red Sea), and the Strait of Hormuz. Because these corridors carry a high density of cargo, any local disruption—whether due to geopolitical conflict, piracy, labor disputes, or weather gales—can introduce significant logistics friction. This friction manifests as transit delays, increased insurance premiums, and higher freight costs, which cascade down the supply chain to final consumption markets.
 
-You are allowed to use figures or diagrams which can help in introducing the topic acknowledging the source. For example , if you are introducing a particular topic, an appropriate figure can be used. The figure should be referenced in the text as Figure. \ref{fig:universe} 
-\begin{figure}[htb]
-\centering
-	\includegraphics[scale=1]{Figures/universe}	
-	\caption{Sample picture of universe }
-	\label{fig:universe}
-\end{figure}
-
-These guidelines are provided to formally expose you to the various ethical and technical issues involved in writing up your work and the format you are required to adhere to while submitting your project report.
+Indian export-import (EXIM) activities are particularly vulnerable to these disruptions. A major portion of India's imports (such as oil and industrial raw materials) and exports (such as engineering goods and textiles) pass through the Red Sea and the Persian Gulf. Disruptions in these regions force shipping lines to take circuitous bypass routes (such as around the Cape of Good Hope), adding thousands of nautical miles and weeks to transit schedules. Traditional static supply chain management systems are ill-equipped to handle these dynamic events. This project builds a five-layer Agentic Digital Twin framework that uses graph theory and LLM-based agentic intelligence to autonomously detect logistics friction, simulate shock propagation, and optimize alternative paths to protect local Indian Small and Medium Enterprise (SME) markets.
 
 \section[Literature Review]{\textbf{Literature Review}}
+A literature review was conducted to evaluate existing systems in supply chain risk management, graph-based digital twins, and agentic artificial intelligence applications.
 
-A literature review is a text of a scholarly paper, which includes the current knowledge including substantive findings, as well as theoretical and methodological contributions to a particular topic. Literature reviews are secondary sources, and do not report new or original experimental work. Most often associated with academic-oriented literature, such reviews are found in academic journals, and are not to be confused with book reviews that may also appear in the same publication. Literature reviews are a basis for research in nearly every academic field . A narrow-scope literature review may be included as part of a peer-reviewed journal article presenting new research, serving to situate the current study within the body of the relevant literature and to provide context for the reader. In such a case, the review usually precedes the methodology and results sections of the work.
+Supply chain digital twins have emerged as a powerful tool for monitoring physical networks. By representing warehouses, ports, and lanes as nodes and edges in a network graph, digital twins can maintain a virtual representation of stock levels and transit states. Most traditional digital twins, however, are static and reactive, requiring manual data updates and predefined decision trees to calculate alternative routes.
 
-\subsection{Sample}
-The main types of literature reviews are: evaluative, exploratory, and instrumental. A fourth type, the systematic review, is often classified separately, but is essentially a literature review focused on a research question, trying to identify, appraise, select and synthesize all high-quality research evidence and arguments relevant to that question. A meta-analysis is typically a systematic review using statistical methods to effectively combine the data used on all selected studies to produce a more reliable result.
-\subsubsection[Review types]{\textbf{Review types}}
+Pathfinding algorithms, particularly Dijkstra's algorithm, are widely used in logistics to find the shortest or cheapest path between origins and destinations. In a dynamic logistics network, edge weights (representing transit time and cost) fluctuate due to disruptions. Applying Dijkstra's algorithm to dynamic graphs requires an execution engine that can propagate shocks downstream (e.g., from a chokepoint to connected ports) to calculate effective weights.
 
-The main types of literature reviews are: evaluative, exploratory, and instrumental. A fourth type, the systematic review, is often classified separately, but is essentially a literature review focused on a research question, trying to identify, appraise, select and synthesize all high-quality research evidence and arguments relevant to that question. A meta-analysis is typically a systematic review using statistical methods to effectively combine the data used on all selected studies to produce a more reliable result.
+Recent advancements in Large Language Models (LLMs) and multi-agent frameworks (such as CrewAI) present opportunities to make supply chain digital twins proactive. Agentic AI systems can assign specific roles (e.g., monitoring news, optimizing routes, analyzing costs, and generating executive reports) to specialized software agents. These agents can use tools to query the digital twin's database, run mathematical optimization engines, and draft human-readable recommendations. This hybrid approach—combining the symbolic reasoning of graphs and pathfinding with the linguistic capability of LLMs—bridges the gap between complex analytical calculations and operational decision-making.
 
-
-\subsubsection[Process and product]{\textbf{Process and product}}
-
-Distinguish between the process of reviewing the literature and a finished work or product known as a literature review. The process of reviewing the literature is often ongoing and informs many aspects of the empirical research project. All of the latest literature should inform a research project. Scholars need to be scanning the literature long after a formal literature review product appears to be completed.
-
-\subsubsection{\textbf{Page limitation}}
-
-A careful literature review is usually 15 to 30 pages and could be longer. The process of reviewing the literature requires different kinds of activities and ways of thinking and link the activities of doing a literature review with Benjamin Bloom’s revised taxonomy of the cognitive domain (ways of thinking: remembering, understanding, applying, analysing, evaluating, and creating).
-
-This section should contain the review of the literature in the past.You should review a minimum of 10 papers from standard reference journals. Kindly avoid local conference papers and papers from predatory journals. Kindly consult with your guide and finalize papers to be considered for review before adding in this section.Report the major observations and findings from each paper in one paragraph in the format given below.
-
-proposed various techniques for adders and multipliers.Add the reference papers to the bibliography section using Jabref and cite it here using the instructions given in further chapters.
-
-
-\subsubsection{\textbf{Plagiarism}}
-
-To use someone else's exact words without quotation marks and appropriate credit, or to use the unique ideas of someone else without acknowledgement, is known as plagiarism. In publishing, plagiarism is illegal; in other circumstances, it is, at the least, unethical. You may quote or paraphrase the words or ideas of another if you document your source. Although you need not enclose the paraphrased material in quotation marks, you must document the source. 
-
-Paraphrased ideas are taken from someone else whether or not the words are identical. Paraphrasing a passage without citing the source is permissible only when the information paraphrased is common knowledge in a field. (Common knowledge refers to historical, scientific, geographical, technical, and other type of information on a topic readily available in handbooks, manuals, atlases and other references). 
-
-\subsubsection{How to add Reference}
-Use \texttt{Jabref} which will help in adding the reference in a separate file, from which one can use \verb|\citep\{\}| command to add reference. A sample, referring to a textbook would look something like this,\cite{Razavi2000}.
+Based on the review of over 10 recent research papers, the key research gaps identified include:
+\begin{itemize}
+    \item Lacks automated translation of unstructured news alerts (e.g., geopolitical reports) into quantitative logistics penalties.
+    \item Lacks coordination between route optimization (symbolic algorithms) and strategic inventory management (safety stock, restocking).
+    \item A need for human-in-the-loop dashboard triggers that present visual recommendations alongside financial and temporal trade-offs.
+\end{itemize}
 
 \section[Motivation]{\textbf{Motivation}}
+The motivation for this project stems from recent real-world maritime crises that disrupted global trade. The 2021 Suez Canal blockage by the container ship \textit{Ever Given} and the 2023–2024 Red Sea shipping crisis (resulting from attacks on commercial vessels) highlighted the fragility of global shipping corridors. These events caused container freight rates to surge and delayed deliveries to Indian ports by 10 to 15 days. For Indian SMEs, which often operate with limited safety stock, these delays quickly led to inventory stockouts, halting production lines and causing financial losses. 
 
-Brief the motivation of selecting your project title. You can elaborate the challenges in the specific area, relevance and importance of the chosen topic. 
+Developing a system that can dynamically simulate these friction shocks and recommend optimized rerouting paths before cargo arrives at disrupted zones is crucial for maintaining supply chain resilience.
 
 \section[Problem statement]{\textbf{Problem statement}}
-
-Define the problem statement in this section, in one paragraph.
+The problem addressed in this project is defined as:
+\begin{quote}
+"To design and implement an Agentic AI-driven Digital Twin framework that dynamically models maritime logistics friction at global chokepoints, simulates the downstream propagation of transit delays and cost spikes, and autonomously recommends optimized alternative routing paths to prevent inventory stockouts in regional Indian SME markets."
+\end{quote}
 
 \section[Objectives]{\textbf{Objectives}}
-The objectives of the project are
+The objectives of the project are:
 \begin{enumerate}
-\item To design a pipelined ADC for audio frequency range
-\item List all the objectives in the above format , starting with "To"
-\item Limit the number of objectives to a maximum of three
+\item To design a multi-tier directed network graph model (Digital Twin) in NetworkX representing the shipping lanes from international suppliers through maritime chokepoints to Indian SME markets.
+\item To develop an Execution Engine that injects simulated friction events (shocks) into the graph, propagates them downstream, and runs Dijkstra's algorithm to find optimal alternate paths based on time or cost criteria.
+\item To implement a multi-agent orchestration layer (using CrewAI and Google Gemini) that parses environment signals, evaluates routing options, checks market inventory levels, and suggests emergency restocking actions.
 \end{enumerate}
 
 \section[Brief Methodology of the project]{\textbf{Brief Methodology of the project}}
-Discuss about the methodology you identified to execute the objectives of your project in brief. Methodology is a system of practices, techniques, procedures, and rules used to execute a particular project. You can elaborate the methodology in a later chapter. Here you can present in the form of a flow diagram and explain the methodology in a paragraph.
-
-\section[Assumptions made / Constraints of the project]{\textbf{Assumptions made / Constraints of the project}}
-
-List the assumptions made for the execution of the project in this section. You can also elaborate on the major constraints of the project. This section should clearly state under what conditions your project is valid. It is mandatory to have this section in your project report.
-
-\section[Organization of the report]{\textbf{Organization of the report}}
-
-This report is organized as follows. Write the discussions in each chapter. A sample is as follows.
+The methodology is executed through the following components:
 \begin{itemize}
-\item Chapter 2 discusses the fundamentals of ADC and the performance parameters for evaluation.
-\item Chapter 3 discusses .
-\item Chapter 4 discusses .
-\item Chapter 5 discusses .
-\item Chapter 6 discusses .
+    \item \textbf{Data Ingestion Layer:} Models 50 simulated friction event scenarios and maps them to quantitative edge multipliers using predefined semantic rules.
+    \item \textbf{Digital Twin Layer:} Constructs a 14-node, 19-edge directed graph in NetworkX storing baseline transit times, logistics costs, and friction penalties.
+    \item \textbf{Execution Engine:} Implements shock injection logic and Dijkstra's algorithm, comparing the "Baseline Graph" and "Shocked Graph" to compute transit and cost deltas.
+    \item \textbf{Agentic Intelligence:} Coordinates a sequential workflow of four agents (Friction Sentry, Logistics Optimizer, Cost Analyst, and SME Communicator) to analyze shocks, check inventory, and write summaries.
+    \item \textbf{Presentation Layer:} Renders the results on an interactive React dashboard with Leaflet map overlays and real-time status alerts.
 \end{itemize}
 
-.
+\section[Assumptions made / Constraints of the project]{\textbf{Assumptions made / Constraints of the project}}
+The project is bound by the following assumptions and constraints:
+\begin{itemize}
+\item The digital twin topology is fixed at 14 nodes and 19 edges, representing primary corridors.
+\item Transit times and logistics costs are simulated averages and do not account for daily spot freight fluctuations.
+\item The multi-agent orchestration layer requires active internet connectivity and access to the Google Gemini API.
+\item The inventory simulation assumes a constant demand rate at each SME market.
+\end{itemize}
+
+\section[Organization of the report]{\textbf{Organization of the report}}
+This report is organized as follows:
+\begin{itemize}
+\item \textbf{Chapter 2} discusses the theoretical background, including graph representation, pathfinding algorithms, agentic AI frameworks, and inventory management theory.
+\item \textbf{Chapter 3} detail the system design and architecture, outlining the 5-layer design, graph schemas, and the multi-agent orchestration setup.
+\item \textbf{Chapter 4} presents the implementation details, including the Python scripts, API endpoints, and dashboard files.
+\item \textbf{Chapter 5} provides the verification and results, documenting the test suite, simulated shock outcomes, and trade-off analyses.
+\item \textbf{Chapter 6} summarizes the conclusions, details the learning outcomes, and suggests future improvements.
+\end{itemize}
